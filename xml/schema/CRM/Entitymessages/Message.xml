@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Entitymessages</base>
+  <class>Message</class>
+  <name>civicrm_message</name>
+  <comment>Message</comment>
+  <add>4.6</add>
+  <log>true</log>
+  <field>
+    <name>id</name>
+    <title>Message ID</title>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique Message ID</comment>
+    <add>4.6</add>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+  <field>
+    <name>created_id</name>
+    <title>Created By</title>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+    <add>4.6</add>
+  </field>
+  <foreignKey>
+    <name>created_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <add>4.6</add>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+  <field>
+    <name>title</name>
+    <title>Message Title</title>
+    <type>varchar</type>
+    <length>128</length>
+    <html>
+      <type>Text</type>
+    </html>
+    <comment>For UI display</comment>
+    <add>4.6</add>
+  </field>
+  <field>
+    <name>subject</name>
+    <title>Subject Line</title>
+    <type>varchar</type>
+    <length>128</length>
+    <html>
+      <type>Text</type>
+    </html>
+  </field>
+  <field>
+    <name>body_text</name>
+    <title>Message Body (text format)</title>
+    <type>longtext</type>
+  </field>
+  <field>
+    <name>body_html</name>
+    <title>Message Body (html format)</title>
+    <type>longtext</type>
+    <comment>Body of the mailing in html format.</comment>
+  </field>
+</table>

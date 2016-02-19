@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Entitymessages</base>
+  <class>EntityMessage</class>
+  <name>civicrm_entity_message</name>
+  <comment>Entity Message Connections</comment>
+  <add>4.6</add>
+  <log>true</log>
+  <field>
+    <name>id</name>
+    <title>EntityMessage ID</title>
+    <type>int unsigned</type>
+    <required>true</required>
+    <add>4.6</add>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+  <field>
+    <name>entity_id</name>
+    <title>Linked Entity</title>
+    <type>int unsigned</type>
+    <add>4.6</add>
+  </field>
+  <field>
+    <name>entity_type</name>
+    <type>varchar</type>
+    <length>64</length>
+    <required>true</required>
+    <import>true</import>
+    <add>4.6</add>
+    <comment>Links to an entity_table like civicrm_financial_type</comment>
+  </field>
+  <field>
+    <name>label</name>
+    <type>varchar</type>
+    <length>64</length>
+    <required>true</required>
+    <import>true</import>
+    <add>4.6</add>
+    <comment>Entity Message Label</comment>
+  </field>
+  <field>
+    <name>name</name>
+    <type>varchar</type>
+    <length>64</length>
+    <required>true</required>
+    <import>true</import>
+    <add>4.6</add>
+    <comment>Entity Message Unique name</comment>
+  </field>
+  <index>
+    <name>index_name_entity_id_entity_type</name>
+    <fieldName>name</fieldName>
+    <fieldName>entity_id</fieldName>
+    <fieldName>entity_type</fieldName>
+    <unique>true</unique>
+    <add>4.6</add>
+  </index>
+  <field>
+    <name>is_smarty_render</name>
+    <type>int</type>
+    <length>4</length>
+    <default>0</default>
+    <import>true</import>
+    <add>4.6</add>
+    <comment>Render using smarty? This has security and performance implications</comment>
+  </field>
+</table>

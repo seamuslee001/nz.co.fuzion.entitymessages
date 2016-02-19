@@ -1,0 +1,90 @@
+<div class="crm-container">
+  <div crm-ui-debug="entityMessages"></div>
+  <div crm-ui-debug="currentMessage"></div>
+  <div crm-ui-debug="entityMessageID"></div>
+  <div crm-ui-debug="is_smarty_render"></div>
+  <form name="myForm" crm-ui-id-scope>
+
+    <div class="help">
+      <p>{{ts('This is an auto-generated skeletal page.')}}</p>
+
+      <p>{{ts('To view more debugging information, edit the URL and include "?angularDebug=1".')}}</p>
+    </div>
+
+    <div crm-ui-accordion="{title: ts('Existing Messages (click on a message to load into the editor)')}">
+      <div ng-repeat="entityMessage in entityMessages">
+        <span class="label"><a title="Edit this message" ng-click="load(entityMessage)" href="" class="ng-binding">{{entityMessage.label}}</a>
+          <span ng-show="entityMessage.entity_id == 0"> {{ ts('(Visible on all domains)') }} </span>
+        </span>
+      </div>
+    </div>
+
+    <div crm-ui-accordion=" {title: messageTitle}">
+      <button ng-click="save(currentMessage, entityMessageID, is_smarty_render)">{{ts('Save')}}</button>
+      <button ng-click="clear()">{{ts('Clear and add new')}}</button>
+      <button ng-click="delete(currentMessage, entityMessageID)">{{ts('Delete')}}</button>
+      <div class="crm-block">
+        <div class="crm-group">
+          <div crm-ui-field="{title: ts('Message Label'), help: hs('label')}">
+            <input
+              crm-ui-id="myForm.title"
+              name="title"
+              ng-model="currentMessage.title"
+              class="crm-form-text"
+              placeholder="{{ts('Message Title (used in the UI only')}}"
+              />
+           </div>
+          <div crm-ui-field="{title: ts('Render using smarty?'), help: hs('is_smarty_render')}">
+            <input
+              type="checkbox"
+              crm-ui-id="myForm.is_smarty_render"
+              name="title"
+              ng-model="currentMessage.is_smarty_render"
+              ng-true-value="1"
+              ng-false-value="0"
+              />
+          </div>
+          <!--
+          <div crm-ui-field="{title: ts('Message Subject'), help: hs('subject')}">
+            <input
+              crm-ui-id="myForm.subject"
+              name="subject"
+              ng-model="currentMessage.subject"
+              class="crm-form-text"
+              placeholder="{{ts('Subject line for messages')}}"
+              />
+            </div>
+            <!-- <div crm-ui-field="{title: 'myForm.body_text', title: ts('Body Text')}">
+            <input
+              crm-ui-id="myForm.body_text"
+              crm-ui-insert-rx="insert:body_text"
+              name="body_text"
+              ng-model="currentMessage.body_text"
+              class="crm-form-text"
+              placeholder="{{ts('')}}"
+              />
+            </div>
+            -->
+            <div crm-ui-field="{title: 'myForm.body_html', title: ts('Body Html')}">
+              <input
+                crm-ui-id="myForm.body_html"
+                crm-ui-richtext name="body_html"
+                name="body_html"
+                ng-model="currentMessage.body_html"
+                class="crm-form-text"
+                placeholder="{{ts('')}}"
+                />
+            </div>
+        </div>
+      </div>
+
+      <div>
+        <button ng-click="save(currentMessage, entityMessageID)">{{ts('Save')}}</button>
+        <button ng-click="delete(currentMessage, entityMessageID)">{{ts('Delete')}}</button>
+      </div>
+
+    </div>
+
+  </form>
+
+</div>
