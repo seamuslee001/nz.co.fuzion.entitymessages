@@ -252,3 +252,22 @@ function entitymessages_civicrm_navigationMenu(&$menu) {
   ));
   _entitymessages_civix_navigationMenu($menu);
 }
+
+/**
+ * Implements hook_civicrm_entityTypes.
+ *
+ * @param array $entityTypes
+ *   Registered entity types.
+ */
+function entitymessages_civicrm_entityTypes(&$entityTypes) {
+  $entityTypes['CRM_Entitymessages_DAO_EntityMessage'] = array(
+    'name' => 'EntityMessage',
+    'class' => 'CRM_Entitymessages_DAO_EntityMessage',
+    'table' => 'civicrm_entity_message',
+  );
+  $entityTypes['CRM_Entitymessages_DAO_Message'] = array(
+    'name' => 'Message',
+    'class' => 'CRM_Entitymessages_DAO_Message',
+    'table' => 'civicrm_message',
+  );
+}
