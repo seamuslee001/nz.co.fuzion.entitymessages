@@ -189,7 +189,8 @@ function entitymessages_civicrm_tokenValues(&$values, $contactIDs, $job = NULL, 
           // @todo calculate return properties.
           $contact = civicrm_api3('Contact', 'getsingle', array('id' => $contactID));
           $message = CRM_Utils_Token::replaceContactTokens($message, $contact, TRUE, $tokensToRender);
-          $message = CRM_Utils_Token::parseThroughSmarty($message, $contact);
+          $message = entitymessages_civicrm_pass_through_smarty($message, $contact);
+
           // also call a hook and get token details
           $resolvers = array($contactID => $contact);
           CRM_Utils_Hook::tokenValues($resolvers,
@@ -217,6 +218,25 @@ function entitymessages_civicrm_tokenValues(&$values, $contactIDs, $job = NULL, 
     }
   }
 
+}
+
+/**
+ * Parse html through Smarty resolving any smarty functions.
+ *
+ * Unlike the core version this one does not check for the smarty var to be
+ * defined on a site-wide basis and can be added on a nuanced basis.
+ *
+ * @param string $tokenHtml
+ * @param array $entity
+ * @param string $entityType
+ * @return string
+ *   html parsed through smarty
+ */
+function entitymessages_civicrm_pass_through_smarty($tokenHtml, $entity, $entityType = 'contact') {
+  $smarty = CRM_Core_Smarty::singleton();
+  // also add the tokens to the template
+  $smarty->assign_by_ref($entityType, $entity);
+  return $smarty->fetch("string:$tokenHtml");
 }
 
 /**
