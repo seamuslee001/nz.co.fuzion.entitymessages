@@ -29,7 +29,7 @@ function entitymessages_civicrm_xmlMenu(&$files) {
  */
 function entitymessages_civicrm_install() {
   _entitymessages_civix_civicrm_install();
-  $messageTemplatesDirectory = __DIR__ . '/templates/messages/';
+  $messageTemplatesDirectory = __DIR__ . '/templates/Messages/';
 
   $templatesToLoad = array(
     'all_contributions_summary_block' => ts('All contributions for a contact (in a table)'),
