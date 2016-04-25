@@ -34,9 +34,20 @@
     <comment>Links to an entity_table like civicrm_financial_type</comment>
   </field>
   <field>
+    <name>message_id</name>
+    <title>Message</title>
+    <type>int unsigned</type>
+    <add>4.6</add>
+    <pseudoconstant>
+      <table>civicrm_message</table>
+      <keyColumn>id</keyColumn>
+      <labelColumn>title</labelColumn>
+    </pseudoconstant>
+  </field>
+  <field>
     <name>label</name>
     <type>varchar</type>
-    <length>64</length>
+    <length>128</length>
     <required>true</required>
     <import>true</import>
     <add>4.6</add>
@@ -45,7 +56,7 @@
   <field>
     <name>name</name>
     <type>varchar</type>
-    <length>64</length>
+    <length>128</length>
     <required>true</required>
     <import>true</import>
     <add>4.6</add>

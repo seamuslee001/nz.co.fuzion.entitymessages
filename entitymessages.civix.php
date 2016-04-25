@@ -261,6 +261,7 @@ function _entitymessages_civix_glob($pattern) {
  * @param array $item - menu you need to insert (parent/child attributes will be filled for you)
  */
 function _entitymessages_civix_insert_navigation_menu(&$menu, $path, $item) {
+  return;
   // If we are done going down the path, insert menu
   if (empty($path)) {
     $menu[] = array(

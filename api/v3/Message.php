@@ -10,7 +10,7 @@
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
 function _civicrm_api3_message_create_spec(&$spec) {
-  $spec['created_id']['api.default'] = 'user_contact_id';
+  //$spec['created_id']['api.default'] = 'user_contact_id';
 }
 
 /**

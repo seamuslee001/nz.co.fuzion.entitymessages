@@ -20,6 +20,22 @@
     <autoincrement>true</autoincrement>
   </primaryKey>
   <field>
+    <name>name</name>
+    <title>name</title>
+    <type>varchar</type>
+    <length>128</length>
+    <html>
+      <type>Text</type>
+    </html>
+    <comment>Unique machine name of the message</comment>
+    <add>4.6</add>
+  </field>
+  <index>
+    <name>ui_name</name>
+    <fieldName>name</fieldName>
+    <add>4.6</add>
+  </index>
+  <field>
     <name>created_id</name>
     <title>Created By</title>
     <type>int unsigned</type>

@@ -29,6 +29,25 @@ function entitymessages_civicrm_xmlMenu(&$files) {
  */
 function entitymessages_civicrm_install() {
   _entitymessages_civix_civicrm_install();
+  $messageTemplatesDirectory = __DIR__ . '/templates/messages/';
+
+  $templatesToLoad = array(
+    'all_contributions_summary_block' => ts('All contributions for a contact (in a table)'),
+    'thank_you_letter_summary_block' => ts('Thank you letter Contribution Summary'),
+    'all_contributions_last_fy_summary_block' => ts('All contributions last financial year for contact (in a table)'),
+    'all_contributions_this_fy_summary_block' => ts('All contributions this financial year for contact (in a table)'),
+  );
+  // Can't do this by api here & in managed it causes errors on uninstall.
+  foreach ($templatesToLoad as $name => $title) {
+    CRM_Core_DAO::executeQuery("
+      INSERT INTO civicrm_message (title, name, body_html)
+      VALUES('{$title}', '{$name}', \"" .  file_get_contents($messageTemplatesDirectory . $name . '.tpl') . "\")
+    ");
+    CRM_Core_DAO::executeQuery("
+      INSERT INTO civicrm_entity_message (label, name, is_smarty_render, entity_id, entity_type, message_id)
+      VALUES('{$title}', '{$name}', 1, " . CRM_Core_Config::domainID() . ", 'Domain', LAST_INSERT_ID())
+    ");
+  }
 }
 
 /**
@@ -184,10 +203,16 @@ function entitymessages_civicrm_tokenValues(&$values, $contactIDs, $job = NULL, 
       //$tokenHtml = CRM_Utils_Token::replaceHookTokens($message, $contacts[$contactId], $categories, TRUE);
 
       if (!empty($entityMessage['is_smarty_render'])) {
+        static $fiscalVarsAssigned = FALSE;
+        if (!$fiscalVarsAssigned) {
+          _entitymessages_assign_fiscal_vars();
+          $fiscalVarsAssigned = TRUE;
+        }
         $tokensToRender = CRM_Utils_Token::getTokens($message);
         foreach ($contactIDs as $contactID) {
           // @todo calculate return properties.
           $contact = civicrm_api3('Contact', 'getsingle', array('id' => $contactID));
+          CRM_Core_Smarty::singleton()->assign('messageContactID', $contactID);
           $message = CRM_Utils_Token::replaceContactTokens($message, $contact, TRUE, $tokensToRender);
           $message = entitymessages_civicrm_pass_through_smarty($message, $contact);
 
@@ -218,6 +243,38 @@ function entitymessages_civicrm_tokenValues(&$values, $contactIDs, $job = NULL, 
     }
   }
 
+}
+
+/**
+ * Assign some consistent fiscal date variables to smarty.
+ */
+function _entitymessages_assign_fiscal_vars() {
+  $config = CRM_Core_Config::singleton();
+  $month = str_pad($config->fiscalYearStart['M'], 2, 0, STR_PAD_LEFT);
+  $day = str_pad($config->fiscalYearStart['d'], 2, 0, STR_PAD_LEFT);
+  $fYear = CRM_Utils_Date::calculateFiscalYear($day, $month);
+  $smarty = CRM_Core_Smarty::singleton();
+  $thisFiscalYearStart = strtotime($fYear . '-' . $month . '-' . $day);
+  $nextFiscalYearStart = strtotime('+ 1 year ', $thisFiscalYearStart);
+  $lastFiscalYearStart = strtotime('- 1 year ', $thisFiscalYearStart);
+  $thisFiscalYearEnd = strtotime('- 1 second ', $nextFiscalYearStart);
+  $lastFiscalYearEnd = strtotime('- 1 second ', $thisFiscalYearStart);
+  $smarty->assign('em_this_fiscal_year_start', date('YmdHis', $thisFiscalYearStart));
+  $smarty->assign('em_this_fiscal_year_end', date('YmdHis', $thisFiscalYearEnd));
+  $smarty->assign('em_last_fiscal_year_start', date('YmdHis', $lastFiscalYearStart));
+  $smarty->assign('em_last_fiscal_year_end', date('YmdHis', $lastFiscalYearEnd));
+  $smarty->assign('em_this_year_clause', array(
+    'BETWEEN' => array(
+      date('YmdHis', $thisFiscalYearStart),
+      date('YmdHis', $thisFiscalYearEnd),
+    ),
+  ));
+  $smarty->assign('em_last_year_clause', array(
+    'BETWEEN' => array(
+      date('YmdHis', $lastFiscalYearStart),
+      date('YmdHis', $lastFiscalYearEnd),
+    ),
+  ));
 }
 
 /**
@@ -259,16 +316,13 @@ function entitymessages_civicrm_preProcess($formName, &$form) {
  */
 function entitymessages_civicrm_navigationMenu(&$menu) {
 
-  $parentID = CRM_Core_DAO::getFieldValue('CRM_Core_BAO_Navigation', 'Communications', 'id', 'name');
-
-  _entitymessages_civix_insert_navigation_menu($menu, NULL, array(
+  _entitymessages_civix_insert_navigation_menu($menu, 'Communications', array(
     'label' => ts('Site Message Tokens', array('domain' => 'nz.co.fuzion.entitymessages')),
     'name' => 'entity_message_tokens',
     'url' => 'civicrm/a/#/entitymessages',
     'permission' => 'administer CiviCRM',
     'operator' => 'OR',
     'separator' => 0,
-    'parentID' => $parentID,
   ));
   _entitymessages_civix_navigationMenu($menu);
 }

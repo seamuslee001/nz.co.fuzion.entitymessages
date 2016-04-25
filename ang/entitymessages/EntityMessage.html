@@ -44,6 +44,16 @@
               ng-false-value="0"
               />
           </div>
+          <div crm-ui-field="{title: ts('Body Html')}">
+                  <textarea
+                    crm-ui-id="myForm.body_html"
+                    crm-ui-richtext name="body_html"
+                    crm-ui-insert-rx="insert:body_html"
+                    name="body_html"
+                    ng-model="currentMessage.body_html"
+                    class="crm-wysiwyg-fullpage"
+                    ></textarea>
+          </div>
           <!--
           <div crm-ui-field="{title: ts('Message Subject'), help: hs('subject')}">
             <input
@@ -65,16 +75,7 @@
               />
             </div>
             -->
-            <div crm-ui-field="{title: 'myForm.body_html', title: ts('Body Html')}">
-              <input
-                crm-ui-id="myForm.body_html"
-                crm-ui-richtext name="body_html"
-                name="body_html"
-                ng-model="currentMessage.body_html"
-                class="crm-form-text"
-                placeholder="{{ts('')}}"
-                />
-            </div>
+
         </div>
       </div>
 

@@ -142,16 +142,25 @@ class CRM_Entitymessages_DAO_EntityMessage extends CRM_Core_DAO
           'name' => 'message_id',
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Linked Message') ,
+          'pseudoconstant' => array(
+            'table' => 'civicrm_message',
+            'keyColumn' => 'id',
+            'labelColumn' => 'title',
+          )
         ),
         'label' => array(
           'name' => 'label',
           'type' => CRM_Utils_Type::T_STRING,
           'title' => ts('Entity Message Label') ,
+          'maxlength' => 128,
+          'size' => CRM_Utils_Type::HUGE,
         ),
         'name' => array(
           'name' => 'name',
           'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Entity Message Name (unique per entity)') ,
+          'title' => ts('Entity Message Name (unique per entity)'),
+          'maxlength' => 128,
+          'size' => CRM_Utils_Type::HUGE,
         ),
         'is_smarty_render' => array(
           'name' => 'is_smarty_render',

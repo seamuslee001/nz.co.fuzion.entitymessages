@@ -172,6 +172,17 @@ class CRM_Entitymessages_DAO_Message extends CRM_Core_DAO
             'type' => 'Text',
           ) ,
         ) ,
+        'name' => array(
+          'name' => 'name',
+          'type' => CRM_Utils_Type::T_STRING,
+          'title' => ts('Name') ,
+          'description' => 'Unique maching name',
+          'maxlength' => 128,
+          'size' => CRM_Utils_Type::HUGE,
+          'html' => array(
+            'type' => 'Text',
+          ) ,
+        ) ,
         'subject' => array(
           'name' => 'subject',
           'type' => CRM_Utils_Type::T_STRING,
