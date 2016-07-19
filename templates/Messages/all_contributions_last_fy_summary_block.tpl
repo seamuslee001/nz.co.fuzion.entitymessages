@@ -8,6 +8,7 @@ receive_date=$em_last_year_clause
   <tr>
     <th>Date</th>
     <th>Amount</th>
+    <th>Financial Type</th>
     <th>Source</th>
   </tr>
   <!--
@@ -18,7 +19,8 @@ receive_date=$em_last_year_clause
   <tr>
     <td>{$date}</td>
     <td>{$contribution.total_amount}</td>
-    <td>{$contribution.source}</td>
+    <td>{$contribution.finnancial_type</td>
+    <td>{$contribution.contribution_source}</td>
   </tr>
   <!--
 {/foreach}
@@ -27,6 +29,7 @@ receive_date=$em_last_year_clause
   <tr>
     <td><strong>Total</strong></td>
     <td><strong>{$contact_aggregate}</strong></td>
+    <td></td>
     <td></td>
   </tr>
   </tbody>
