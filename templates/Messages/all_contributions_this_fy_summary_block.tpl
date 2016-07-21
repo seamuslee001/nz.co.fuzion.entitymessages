@@ -18,7 +18,7 @@ receive_date=$em_this_year_clause
   <tr>
     <td>{$date}</td>
     <td>{$contribution.total_amount}</td>
-    <td>{$contribution.source}</td>
+    <td>{$contribution.contribution_source}</td>
   </tr>
   <!--
 {/foreach}
