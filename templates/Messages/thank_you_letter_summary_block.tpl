@@ -15,7 +15,7 @@ value=$contact_aggregate+$contribution.total_amount}
 -->
   <tr>
     <td>{$date}</td>
-    <td>{$contribution.total_amount}</td>
+    <td>{$contribution.total_amount|crmMoney}</td>
     <td>{$contribution.financial_type}</td>
     <td>{$contribution.source}</td>
   </tr>
@@ -24,7 +24,7 @@ value=$contact_aggregate+$contribution.total_amount}
 -->
   <tr>
     <td><strong>Total</strong></td>
-    <td><strong>{$contact_aggregate}</strong></td>
+    <td><strong>{$contact_aggregate|crmMoney}</strong></td>
     <td></td>
     <td></td>
   </tr>
