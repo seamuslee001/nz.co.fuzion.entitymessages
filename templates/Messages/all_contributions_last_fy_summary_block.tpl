@@ -18,7 +18,7 @@ receive_date=$em_last_year_clause
 -->
   <tr>
     <td>{$date}</td>
-    <td>{$contribution.total_amount}</td>
+    <td>{$contribution.total_amount|crmMoney}</td>
     <td>{$contribution.finnancial_type</td>
     <td>{$contribution.contribution_source}</td>
   </tr>
@@ -28,7 +28,7 @@ receive_date=$em_last_year_clause
 -->
   <tr>
     <td><strong>Total</strong></td>
-    <td><strong>{$contact_aggregate}</strong></td>
+    <td><strong>{$contact_aggregate|crmMoney}</strong></td>
     <td></td>
     <td></td>
   </tr>

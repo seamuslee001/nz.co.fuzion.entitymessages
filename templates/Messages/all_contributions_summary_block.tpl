@@ -16,7 +16,7 @@
 -->
   <tr>
     <td>{$date}</td>
-    <td>{$contribution.total_amount}</td>
+    <td>{$contribution.total_amount|crmMoney}</td>
     <td>{$contribution.financial_type}</td>
     <td>{$contribution.contribution_source}</td>
   </tr>
@@ -26,7 +26,7 @@
 -->
   <tr>
     <td><strong>Total</strong></td>
-    <td><strong>{$contact_aggregate}</strong></td>
+    <td><strong>{$contact_aggregate|crmMony}</strong></td>
     <td></td>
     <td></td>
   </tr>
